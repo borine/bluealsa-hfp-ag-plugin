@@ -1,6 +1,6 @@
 /*
  * hfpag-hook.c
- * Copyright (c) 2023 @borine (https://github.com/borine/)
+ * Copyright (c) 2024 @borine (https://github.com/borine/)
  *
  * This project is licensed under the terms of the MIT license.
  *
@@ -46,13 +46,8 @@ static int str2bdaddr(const char *str, bdaddr_t *ba) {
 static int bluealsa_hfpag_hw_params(snd_pcm_hook_t *hook) {
 	struct bluealsa_hfpag *hfpag = (struct bluealsa_hfpag*)snd_pcm_hook_get_private(hook);
 
-	if (hfpag_session_begin(hfpag->session, &hfpag->dbus_ctx) == 0) {
+	if (hfpag_session_begin(hfpag->session, &hfpag->dbus_ctx) == 0)
 		hfpag->session_started = true;
-		/* Delay starting the slave PCM to allow the device to process the
-		 * RFCOMM request.
-		 * FIXME this delay is arbitrary - how to determine needed value? */
-		usleep(500000);
-	}
 
 	return 0;
 }
