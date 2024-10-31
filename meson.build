@@ -1,4 +1,4 @@
-project('bluealsa-hfpag-plugin', 'c', version: '0.0.1', license: 'MIT')
+project('bluealsa-hfpag-plugin', 'c', version: '0.0.2', license: 'MIT')
 
 prefix = get_option('prefix')
 assert(prefix.startswith('/'), 'Prefix is not absolute: "@0@"'.format(prefix))
@@ -21,16 +21,13 @@ alsa_plugin_dir = join_paths(
 hfp_ag_plugin_sources = [
 	'hfpag-hook.c',
 	'hfpag-session.c',
-	'bluez-alsa/shared/a2dp-codecs.c',
-	'bluez-alsa/shared/dbus-client.c',
-	'bluez-alsa/shared/log.c',
-	'bluez-alsa/shared/rt.c',
+	'bluez-alsa/dbus-client.c',
 ]
 
 hfp_ag_plugin = shared_library(
 	'asound_module_pcm_hooks_bluealsa_hfpag',
 	hfp_ag_plugin_sources,
-	include_directories: [ 'bluez-alsa', 'bluez-alsa/shared' ],
+	include_directories: [ 'bluez-alsa' ],
 	dependencies: [ alsa_dep, dbus_dep ],
 	c_args: '-DPIC',
 	install: true,

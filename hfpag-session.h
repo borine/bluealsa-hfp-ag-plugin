@@ -14,7 +14,7 @@
 #include <dbus/dbus.h>
 #include <limits.h>
 
-#include "shared/dbus-client.h"
+#include "dbus-client.h"
 
 struct hfpag_session {
 	char rfcomm_path[128];

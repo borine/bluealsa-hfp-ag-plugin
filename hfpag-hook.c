@@ -17,7 +17,7 @@
 #include <unistd.h>
 
 #include "hfpag-session.h"
-#include "shared/dbus-client.h"
+#include "dbus-client.h"
 
 struct bluealsa_hfpag {
 	struct ba_dbus_ctx dbus_ctx;

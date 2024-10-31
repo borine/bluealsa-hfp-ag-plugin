@@ -1,6 +1,6 @@
 # bluez-alsa source files
 
-The source files in this directory and its sub-directories are copied from the
+The source files in this directory are copied from the
 bluez-alsa project, https://github.com/arkq/bluez-alsa
 
 They are used here by permission under the terms of the MIT license.

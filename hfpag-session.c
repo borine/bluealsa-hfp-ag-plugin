@@ -45,8 +45,8 @@ static void send_rfcomm_sequence(struct ba_dbus_ctx *dbus_ctx, const char *rfcom
 
 	int n;
 	for (n = 0; commands[n] != NULL; n++) {
-		ssize_t err = write(rfcomm_fd, commands[n], strlen(commands[n]));
-		if (err < 0 || (size_t)err < strlen(commands[n])) {
+		ssize_t written = write(rfcomm_fd, commands[n], strlen(commands[n]));
+		if (written < 0 || (size_t)written < strlen(commands[n])) {
 			SNDERR("Couldn't complete RFCOMM sequence: %s", strerror(errno));
 			break;
 		}
