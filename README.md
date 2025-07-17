@@ -18,6 +18,8 @@ arecord -D hfpag:00:11:22:33:44:55 -f s16_le -c 1 -r 8000 recording.wav
 
 The parameters of the `hfpag` PCM device are the same as for the `bluealsa` PCM device, except that `PROFILE` is not supported; the profile is always `sco`. Note that this PCM does not support HSP. See the [BlueALSA ALSA plugins manual page](https://github.com/arkq/bluez-alsa/blob/master/doc/bluealsa-plugins.7.rst) for more information on using BlueALSA plugins.
 
+> [!Note]
+> This version is compatible with BlueALSA v4.3.1 and earlier.
 
 ## Installation
 
