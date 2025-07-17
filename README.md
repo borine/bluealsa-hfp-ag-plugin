@@ -11,17 +11,19 @@ BlueALSA does not implement HFP call management functions, and therefore it is n
 In use cases such as VOIP, web-based video conferencing, etc., there is no need for a phone modem and therefore oFono is not a good solution.
 
 The purpose of this project is to allow applications to simply open an ALSA PCM device to achieve audio output and input via a HFP-HF device that requires an in-progess call. It achieves this by providing a wrapper around the BlueALSA PCM which sends the necessary HFP signalling to convince the HF device that a call is in progress. The wrapper is itself an ALSA PCM device called "hfpag" which is used in the same way as the `bluealsa` device. For example:
-```
+```console
 aplay -D hfpag:00:11:22:33:44:55 audio.wav
 arecord -D hfpag:00:11:22:33:44:55 -f s16_le -c 1 -r 8000 recording.wav
 ```
 
 The parameters of the `hfpag` PCM device are the same as for the `bluealsa` PCM device, except that `PROFILE` is not supported; the profile is always `sco`. Note that this PCM does not support HSP. See the [BlueALSA ALSA plugins manual page](https://github.com/arkq/bluez-alsa/blob/master/doc/bluealsa-plugins.7.rst) for more information on using BlueALSA plugins.
 
+> [!Important]
+> This version of bluealsa-hfp-ag-plugin is not compatible with BlueALSA v4.3.1 or earlier.
 
 ## Installation
 
-```
+```console
 meson setup builddir
 cd builddir
 meson compile
@@ -32,4 +34,4 @@ sudo meson install
 
 This project is licensed under the terms of the MIT license.
 
-It includes copies of source code files from the bluez-alsa project, which are also licensed under the MIT license and all rights to those files remain with the original author.
+It includes copies of source code files from the bluez-alsa project, which are also licensed under the MIT license and all rights to those files remain with their original author.

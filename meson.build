@@ -1,4 +1,4 @@
-project('bluealsa-hfpag-plugin', 'c', version: '0.0.2', license: 'MIT')
+project('bluealsa-hfpag-plugin', 'c', version: '0.0.3', license: 'MIT')
 
 prefix = get_option('prefix')
 assert(prefix.startswith('/'), 'Prefix is not absolute: "@0@"'.format(prefix))
