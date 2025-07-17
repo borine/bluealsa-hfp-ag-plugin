@@ -14,7 +14,7 @@ alsa_dep = dependency('alsa', version: '>= 1.2.5')
 dbus_dep = dependency('dbus-1')
 
 alsa_plugin_dir = join_paths(
-	alsa_dep.get_pkgconfig_variable('libdir'),
+	alsa_dep.get_variable(pkgconfig : 'libdir'),
 	'alsa-lib'
 )
 
