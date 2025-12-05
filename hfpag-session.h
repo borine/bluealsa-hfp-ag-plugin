@@ -1,9 +1,7 @@
 /*
- * hfpag-session.h
- * Copyright (c) 2023 @borine (https://github.com/borine/)
- *
- * This project is licensed under the terms of the MIT license.
- *
+ * bluealsa-hfpag-plugin - hfpag-session.h
+ * SPDX-FileCopyrightText: 2016-2025 @borine <https://github.com/borine/>
+ * SPDX-License-Identifier: MIT
  */
 
 #pragma once
@@ -14,7 +12,7 @@
 #include <dbus/dbus.h>
 #include <limits.h>
 
-#include "dbus-client.h"
+#include "bluez-alsa/dbus-client.h"
 
 struct hfpag_session {
 	char rfcomm_path[128];

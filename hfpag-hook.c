@@ -1,9 +1,7 @@
 /*
- * hfpag-hook.c
- * Copyright (c) 2024 @borine (https://github.com/borine/)
- *
- * This project is licensed under the terms of the MIT license.
- *
+ * bluealsa-hfpag-plugin - hfpag-hook.c
+ * SPDX-FileCopyrightText: 2016-2025 @borine <https://github.com/borine/>
+ * SPDX-License-Identifier: MIT
  */
 
 #define _GNU_SOURCE
@@ -17,7 +15,7 @@
 #include <unistd.h>
 
 #include "hfpag-session.h"
-#include "dbus-client.h"
+#include "bluez-alsa/dbus-client-pcm.h"
 
 struct bluealsa_hfpag {
 	struct ba_dbus_ctx dbus_ctx;
@@ -64,7 +62,7 @@ static int bluealsa_hfpag_hw_free(snd_pcm_hook_t *hook) {
 
 static int bluealsa_hfpag_close(snd_pcm_hook_t *hook) {
 	struct bluealsa_hfpag *hfpag = (struct bluealsa_hfpag*)snd_pcm_hook_get_private(hook);
-	bluealsa_dbus_connection_ctx_free(&hfpag->dbus_ctx);
+	ba_dbus_connection_ctx_free(&hfpag->dbus_ctx);
 	hfpag_session_free(hfpag->session);
 	free(hfpag);
 	snd_pcm_hook_set_private(hook, NULL);
@@ -118,14 +116,14 @@ int bluealsa_hfpag_hook_install(snd_pcm_t *pcm, snd_config_t *conf) {
 
 	DBusError err = DBUS_ERROR_INIT;
 
-	if (!bluealsa_dbus_connection_ctx_init(&hfpag->dbus_ctx, service, &err)) {
+	if (!ba_dbus_connection_ctx_init(&hfpag->dbus_ctx, service, &err)) {
 		SNDERR("Couldn't initialize D-Bus context: %s", err.message);
 		dbus_error_free(&err);
 		return -EIO;
 	}
 
 	struct ba_pcm ba_pcm = { 0 };
-	if (!bluealsa_dbus_get_pcm(&hfpag->dbus_ctx,
+	if (!ba_dbus_pcm_get(&hfpag->dbus_ctx,
 				&ba_addr,
 				BA_PCM_TRANSPORT_MASK_SCO,
 				snd_pcm_stream(pcm) == SND_PCM_STREAM_PLAYBACK ? BA_PCM_MODE_SINK : BA_PCM_MODE_SOURCE,
@@ -156,7 +154,7 @@ int bluealsa_hfpag_hook_install(snd_pcm_t *pcm, snd_config_t *conf) {
 	return 0;
 
 fail:
-	bluealsa_dbus_connection_ctx_free(&hfpag->dbus_ctx);
+	ba_dbus_connection_ctx_free(&hfpag->dbus_ctx);
 	dbus_error_free(&err);
 	if (hfpag->session != NULL)
 		hfpag_session_free(hfpag->session);

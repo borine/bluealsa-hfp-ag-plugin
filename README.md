@@ -1,3 +1,8 @@
+<!--
+SPDX-FileCopyrightText: 2016-2025 @borine <https://github.com/borine/>
+SPDX-License-Identifier: MIT
+-->
+
 # HFP AG Helper Plugin for BlueALSA
 
 ## Introduction

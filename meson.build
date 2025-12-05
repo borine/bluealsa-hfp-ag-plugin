@@ -1,4 +1,8 @@
-project('bluealsa-hfpag-plugin', 'c', version: '0.0.3', license: 'MIT')
+# bluealsa-hfpag-plugin - meson.build
+# SPDX-FileCopyrightText: 2016-2025 @borine <https://github.com/borine/>
+# SPDX-License-Identifier: MIT
+
+project('bluealsa-hfpag-plugin', 'c', version: '0.0.4', license: 'MIT')
 
 prefix = get_option('prefix')
 assert(prefix.startswith('/'), 'Prefix is not absolute: "@0@"'.format(prefix))
@@ -22,12 +26,14 @@ hfp_ag_plugin_sources = [
 	'hfpag-hook.c',
 	'hfpag-session.c',
 	'bluez-alsa/dbus-client.c',
+	'bluez-alsa/dbus-client-pcm.c',
+	'bluez-alsa/dbus-client-rfcomm.c',
+	'bluez-alsa/a2dp-codecs.c',
 ]
 
 hfp_ag_plugin = shared_library(
 	'asound_module_pcm_hooks_bluealsa_hfpag',
 	hfp_ag_plugin_sources,
-	include_directories: [ 'bluez-alsa' ],
 	dependencies: [ alsa_dep, dbus_dep ],
 	c_args: '-DPIC',
 	install: true,
@@ -38,4 +44,3 @@ install_data(
 	'21-bluealsa-hfpag.conf',
 	install_dir: alsaconfdir,
 )
-

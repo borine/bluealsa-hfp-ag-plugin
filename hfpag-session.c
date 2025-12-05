@@ -1,9 +1,7 @@
 /*
- * hfpag-session.c
- * Copyright (c) 2023 @borine (https://github.com/borine/)
- *
- * This project is licensed under the terms of the MIT license.
- *
+ * bluealsa-hfpag-plugin - hfpag-session.c
+ * SPDX-FileCopyrightText: 2016-2025 @borine <https://github.com/borine/>
+ * SPDX-License-Identifier: MIT
  */
 
 #define _GNU_SOURCE
@@ -16,6 +14,7 @@
 #include <sys/stat.h>
 
 #include "hfpag-session.h"
+#include "bluez-alsa/dbus-client-rfcomm.h"
 
 #define BLUEALSA_HFPAG_MUTEX_OFFSET 0
 #define BLUEALSA_HFPAG_FLAG_OFFSET 1
@@ -37,7 +36,7 @@ static const char *hfpag_terminate_call[] = {
 static void send_rfcomm_sequence(struct ba_dbus_ctx *dbus_ctx, const char *rfcomm_path, const char **commands) {
 	int rfcomm_fd;
 	DBusError err = DBUS_ERROR_INIT;
-	if (!bluealsa_dbus_open_rfcomm(dbus_ctx, rfcomm_path, &rfcomm_fd, &err)) {
+	if (!ba_dbus_rfcomm_open(dbus_ctx, rfcomm_path, &rfcomm_fd, &err)) {
 		SNDERR("Couldn't open RFCOMM: %s", err.message);
 		dbus_error_free(&err);
 		return;
