@@ -8,6 +8,7 @@ prefix = get_option('prefix')
 assert(prefix.startswith('/'), 'Prefix is not absolute: "@0@"'.format(prefix))
 
 alsaconfdir = '/etc/alsa/conf.d'
+alsadatadir = '/usr/share/alsa/alsa.conf.d'
 
 conf_data = configuration_data()
 conf_data.set('prefix', prefix)
@@ -42,5 +43,11 @@ hfp_ag_plugin = shared_library(
 
 install_data(
 	'21-bluealsa-hfpag.conf',
-	install_dir: alsaconfdir,
+	install_dir: alsadatadir,
+)
+
+install_symlink(
+  '21-bluealsa-hfpag.conf',
+  install_dir : alsaconfdir,
+  pointing_to : alsadatadir / '21-bluealsa-hfpag.conf',
 )
