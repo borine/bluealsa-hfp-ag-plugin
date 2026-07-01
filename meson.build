@@ -29,7 +29,7 @@ hfp_ag_plugin_sources = [
 	'bluez-alsa/dbus-client.c',
 	'bluez-alsa/dbus-client-pcm.c',
 	'bluez-alsa/dbus-client-rfcomm.c',
-	'bluez-alsa/a2dp-codecs.c',
+	'bluez-alsa/bluetooth-a2dp.c',
 ]
 
 hfp_ag_plugin = shared_library(

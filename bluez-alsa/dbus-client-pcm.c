@@ -18,7 +18,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
-#include "a2dp-codecs.h"
+#include "bluetooth-a2dp.h"
 #include "defs.h"
 
 static int path2ba(const char *path, bdaddr_t *ba) {
@@ -206,7 +206,7 @@ const char *ba_dbus_pcm_codec_get_canonical_name(
 		if (strcasecmp(sco_codecs[i], alias) == 0)
 			return sco_codecs[i];
 
-	return a2dp_codecs_get_canonical_name(alias);
+	return a2dp_codec_canonical_name(alias);
 }
 
 static void dbus_message_iter_get_codec_data(
@@ -732,6 +732,10 @@ static dbus_bool_t dbus_message_iter_get_ba_pcm_props_cb(const char *key,
 			pcm->transport = BA_PCM_TRANSPORT_A2DP_SOURCE;
 		else if (strstr(tmp, "A2DP-sink") != NULL)
 			pcm->transport = BA_PCM_TRANSPORT_A2DP_SINK;
+		else if (strstr(tmp, "ASHA-source") != NULL)
+			pcm->transport = BA_PCM_TRANSPORT_ASHA_SOURCE;
+		else if (strstr(tmp, "ASHA-sink") != NULL)
+			pcm->transport = BA_PCM_TRANSPORT_ASHA_SINK;
 		else if (strstr(tmp, "HFP-AG") != NULL)
 			pcm->transport = BA_PCM_TRANSPORT_HFP_AG;
 		else if (strstr(tmp, "HFP-HF") != NULL)
